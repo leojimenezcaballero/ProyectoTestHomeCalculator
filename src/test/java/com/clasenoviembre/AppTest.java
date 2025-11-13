@@ -85,4 +85,12 @@ public class AppTest {
 
         assertTrue(10==r1.getLength()&&4==r1.getWidth() );
     }
+
+    @Test
+    void GetSetTriangle(){
+        Triangle t1 = new Triangle(50, 75);
+        t1.setBase(25);
+        t1.setHeight(72);
+        assertTrue(t1.getBase()==25 && t1.getHeight()==72);
+    }
 }
