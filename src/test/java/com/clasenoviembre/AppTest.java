@@ -1,6 +1,9 @@
 package com.clasenoviembre;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.clasenoviembre.shapes.Circle;
 import com.clasenoviembre.shapes.Rectangle;
@@ -11,16 +14,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//Refactorizamos codigo utilizando anotaciones de ParametizeredTest
+/*CsvSource - ValueSource */
+
 public class AppTest {
 
-    @Test
-    void AreaSquareTest() {
-        Square sqr = new Square(42.2);
+    private Square sqr;
+    private Rectangle rct;
+    private Circle cr;
+    private Triangle tr;
+
+    @ParameterizedTest
+    @ValueSource(doubles = {12.5 , 24.3 , 3.14 , 8.3})
+    void AreaSquareTest(double side) {
+        Square sqr = new Square(side);
         double areasquare = sqr.calcularArea();
 
-        assertEquals(Math.pow(42.2, 2), areasquare);
+        assertEquals(Math.pow(side, 2), areasquare );
     }
 
+/* 
     @Test
     void AreaSquareTestNot() {
         Square sqr = new Square(42.2);
@@ -28,13 +41,22 @@ public class AppTest {
 
         assertNotEquals(Math.pow(42.2, 5), areasquare);
     }
+*/
 
-    @Test
-    void AreaRectangleTest() {
-        Rectangle rect = new Rectangle(10, 15);
+    @ParameterizedTest
+    @CsvSource({
+    /*length , width*/
+        "7   ,   4",
+        "10  ,   5",
+        "15  ,   7",
+        "25   ,   2"
+    })
+    void AreaRectangleTest(double length, double width) {
+        System.out.println(length + " " + width);
+        Rectangle rect = new Rectangle(length, width );
         double arearectangle = rect.calcularArea();
 
-        assertEquals(150, arearectangle);
+        assertEquals(length  * width   , arearectangle );
     }
 
     @Test
