@@ -17,9 +17,21 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+
+
+
 //Refactorizamos codigo utilizando anotaciones de ParametizeredTest
 /*CsvSource - ValueSource */
 
+//Refactorizamos por segunda vez el codigo utilizando anotaciones de TestMethodOrder
+/*@TestMethodOrder */
+
+@TestMethodOrder(OrderAnnotation.class)
 public class AppTest {
 
     private Square sqr;
@@ -51,6 +63,9 @@ public class AppTest {
         System.out.println("✔ Objetos limpiados después del test.");
     }
     
+    
+    @Order(5)
+    @Tag("area")
     @ParameterizedTest
     @ValueSource(doubles = { 12.5, 24.3, 3.14, 8.3 })
     @DisplayName("Calculo de area de Square usando ValueSource y assertEquals verificando\n" + //
@@ -72,7 +87,8 @@ public class AppTest {
      * }
      */
 
-    
+    @Order(4)
+    @Tag("area")
     @ParameterizedTest
     @CsvSource({
             /* length , width */
@@ -91,7 +107,8 @@ public class AppTest {
         assertEquals(length * width, arearectangle);
     }
 
-    
+    @Order(3)
+    @Tag("area")
     @ParameterizedTest
     @ValueSource(doubles = { 6.4, 10.5, 13.1, 50 })
     @DisplayName("Calculo de area de Circle usando ValueSource y assertEquals verificando\n" + //
@@ -103,7 +120,8 @@ public class AppTest {
         assertEquals(Math.pow(radius, 2) * Math.PI, areacircle);
     }
 
-   
+    @Order(1)
+    @Tag("area")
     @ParameterizedTest
     @CsvSource({
             /* base , height */
@@ -122,6 +140,8 @@ public class AppTest {
         assertEquals((base * height) / 2, areatrian);
     }
 
+    @Order(2)
+    @Tag("area")
     @ParameterizedTest
     @CsvSource({
         /* base , height , radius , length , width , side */
@@ -148,7 +168,8 @@ public class AppTest {
                 (length * width) + Math.pow(side, 2), areatotal);
     }
 
-    
+    @Order(8)
+    @Tag("integration")
     @ParameterizedTest  
     @CsvSource({
             /* radius , radiusSet */
@@ -169,7 +190,8 @@ public class AppTest {
 
     }
 
-    
+    @Order(6)
+    @Tag("integration")
     @ParameterizedTest
     @CsvSource({
         /* length , width , lengthSet , widthSet  */
@@ -191,7 +213,8 @@ public class AppTest {
         assertTrue(lengthSet == rct.getLength() && widthSet == rct.getWidth());
     }
 
-    
+    @Order(7)
+    @Tag("integration")
     @ParameterizedTest   
     @CsvSource({
         /* base , height , baseSet , heightSet  */
